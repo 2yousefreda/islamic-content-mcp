@@ -1,0 +1,22 @@
+{
+  "name": "islamic-content-mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for Islamic Content SDK",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "islamic-content-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.4.1",
+    "islamic-content-sdk": "file:../islamic content npm sdk"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
