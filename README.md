@@ -6,7 +6,7 @@ This server acts as a bridge for the [`islamic-content-sdk`](https://github.com/
 
 ---
 
-## 🌟 Features
+## Features
 
 - **Quran Services**: Fetch surah and ayah translations (via QuranEnc & IslamHouse Quran), retrieve MP3 audio files, and submit notes/suggestions.
 - **Hadith Services**: Access Hadeeth listings, categories, translations, and explanations (via HadeethEnc).
@@ -16,7 +16,7 @@ This server acts as a bridge for the [`islamic-content-sdk`](https://github.com/
 
 ---
 
-## 🚀 Installation & Configuration
+## Installation & Configuration
 
 To use this MCP server, you must have **Node.js (v18+)** installed on your system.
 
@@ -56,36 +56,36 @@ Add the following block under `mcpServers`:
 
 ---
 
-## 🛠️ Available Tools
+## Available Tools
 
 The MCP server registers **over 80 tools** organized by their target service:
 
-### 📖 Quran
+### Quran
 - `quranenc_translation_list`: Get lists of translations (e.g. English, French, Urdu).
 - `quranenc_translation_sura`: Fetch translation for a complete surah.
 - `quranenc_translation_aya`: Fetch translation for a specific ayah.
 - `quranenc_aya_audio`: Get audio file URL (MP3) for an ayah.
 - `islamhouse_quran_categories`, `islamhouse_quran_sura_details`, etc.
 
-### 📚 Hadith
+### Hadith
 - `hadeethenc_languages`: Get supported translation languages.
 - `hadeethenc_categories`: Retrieve Hadith categories.
 - `hadeethenc_hadiths_list`: List hadiths inside a category.
 - `hadeethenc_hadith_details`: Get the Arabic text, translation, explanation, and references of a single hadith.
 
-### 🏢 IslamHouse General
+### IslamHouse General
 - `islamhouse_list_items`: Query books, audios, videos, and fatwas.
 - `islamhouse_item_details`: Fetch full details and attachments (PDFs/Audios) of an item.
 - `islamhouse_list_authors`: Get authors/scholars details.
 
-### 🔗 Specialized Services
+### Specialized Services
 - **Al-Montaka**: `almontaka_content`, `almontaka_comments`, lookup tables (entities, tags, etc.).
 - **Bayan Al-Islam**: `bayan_muslim_list`, `bayan_name_search`, `bayan_content_translation`.
 - **Risalat Al-Haramain**: `risala_get_contents`, `risala_fatwas`, `risala_hadeeths`.
 
 ---
 
-## 🧑‍💻 Developer Guide (Local Development)
+## Developer Guide (Local Development)
 
 If you want to clone, modify, or run the server locally:
 
@@ -114,6 +114,6 @@ To configure your AI client to use your local development folder, change the con
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **ISC License**.
