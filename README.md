@@ -1,8 +1,15 @@
 # Islamic Content MCP Server
 
+This project is developed for [The Association for Multi-lingual Islamic Content](https://islamiccontent.sa/).
+
 An official **Model Context Protocol (MCP) Server** designed to connect AI assistants (like Claude Desktop, Cursor, VS Code, etc.) to authentic Islamic content (the Holy Qur'an, Hadith, and Islamic resources) in multiple languages. 
 
 This server acts as a bridge for the [`islamic-content-sdk`](https://github.com/2yousefreda/islamic-content-sdk-npm), exposing its endpoints as tools and documentation as resources so that AI models can fetch live content and learn how to develop code using both the **NPM (JS/TS)** and **PIP (Python)** libraries.
+
+## Official SDKs
+
+- **NPM Package**: [`islamic-content-sdk`](https://www.npmjs.com/package/islamic-content-sdk)
+- **PyPI Package**: [`islamic-content-sdk`](https://pypi.org/project/islamic-content-sdk/)
 
 ---
 
@@ -111,6 +118,17 @@ To configure your AI client to use your local development folder, change the con
 "command": "node",
 "args": ["/path/to/islamic-content-mcp/dist/index.js"]
 ```
+
+---
+
+## Donation & Support
+
+You can support the projects and efforts of The Association for Multi-lingual Islamic Content through the following official channels:
+
+- [Support Projects (Wakfy)](https://islamiccontent.org/Wakfy)
+- [Bank Accounts](https://islamiccontent.org/Accounts)
+- [Association Store](https://store.islamiccontent.sa/)
+- [Annual Operational Support (الدعم التشغيلي السنوي للجمعية)](https://store.islamiccontent.sa/%D8%A7%D9%84%D9%85%D8%B5%D8%B1%D9%88%D9%81%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%B4%D8%BA%D9%8A%D9%84%D9%8A%D8%A9-%D8%A7%D9%84%D8%B3%D9%86%D9%88%D9%8A%D8%A9-%D9%84%D9%84%D8%AC%D9%85%D8%B9%D9%8A-%D8%A9/p1950956689)
 
 ---
 
