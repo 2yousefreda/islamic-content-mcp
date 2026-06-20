@@ -1,6 +1,6 @@
 {
   "name": "islamic-content-mcp-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Model Context Protocol (MCP) server for Islamic Content SDK",
   "type": "module",
   "main": "dist/index.js",

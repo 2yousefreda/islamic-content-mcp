@@ -61,6 +61,65 @@ Add the following block under `mcpServers`:
    - **Command**: `npx -y islamic-content-mcp-server`
 4. Click **Save**.
 
+### 3. VS Code Integration (via Cline / Roo Code / Roo Cline)
+
+Add the configuration block under `mcpServers` inside your MCP settings file:
+* **Windows**: `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json` (or similar depending on the extension version)
+* **macOS**: `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+
+```json
+{
+  "mcpServers": {
+    "islamic-content": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "islamic-content-mcp-server"
+      ]
+    }
+  }
+}
+```
+
+### 4. Windsurf Integration
+
+Add the configuration block under `mcpServers` in your Windsurf MCP configuration file:
+* **Path**: `~/.codeium/windsurf/mcp_config.json`
+
+```json
+{
+  "mcpServers": {
+    "islamic-content": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "islamic-content-mcp-server"
+      ]
+    }
+  }
+}
+```
+
+### 5. Antigravity IDE Integration
+
+Add the configuration block under `mcpServers` in your Antigravity configuration file:
+* **Windows**: `C:\Users\<YourUsername>\.gemini\antigravity-ide\mcp_config.json`
+* **macOS**: `~/.gemini/antigravity-ide/mcp_config.json`
+
+```json
+{
+  "mcpServers": {
+    "islamic-content": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "islamic-content-mcp-server"
+      ]
+    }
+  }
+}
+```
+
 ---
 
 ## Available Tools
