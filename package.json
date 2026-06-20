@@ -7,13 +7,16 @@
   "bin": {
     "islamic-content-mcp": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.1",
-    "islamic-content-sdk": "file:../islamic content npm sdk"
+    "islamic-content-sdk": "^1.0.5"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
