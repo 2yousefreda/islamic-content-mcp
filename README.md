@@ -109,7 +109,7 @@ node dist/index.js
 To configure your AI client to use your local development folder, change the config to:
 ```json
 "command": "node",
-"args": ["F:/work/islamic content mcp/dist/index.js"]
+"args": ["/path/to/islamic-content-mcp/dist/index.js"]
 ```
 
 ---
