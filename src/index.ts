@@ -1643,7 +1643,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
-// Run server using stdio transport
-const transport = new StdioServerTransport();
-await server.connect(transport);
-console.error("Islamic Content MCP Server running on stdio");
+export async function runServer(): Promise<void> {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("Islamic Content MCP Server running on stdio");
+}
+
+export { IslamicContentMCPClient, ClientOptions, GetContextParams } from "./client.js";

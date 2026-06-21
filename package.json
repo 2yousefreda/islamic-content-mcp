@@ -1,11 +1,11 @@
 {
   "name": "islamic-content-mcp-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Model Context Protocol (MCP) server for Islamic Content SDK",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "islamic-content-mcp": "./dist/index.js"
+    "islamic-content-mcp": "./dist/bin.js"
   },
   "files": [
     "dist"
