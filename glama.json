@@ -1,4 +1,8 @@
 {
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": [
+    "2yousefreda"
+  ],
   "version": "1.0",
   "name": "islamic-content-mcp-server",
   "description": "Model Context Protocol (MCP) Server for the Association for Multi-lingual Islamic Content. Provides AI agents access to authentic Quran, Hadith, and Islamic library resources.",
