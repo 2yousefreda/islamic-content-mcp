@@ -284,23 +284,30 @@ This is the only tool dedicated exclusively to Hadith texts and their detailed e
   },
   {
     name: "islamhouse_library",
-    description: `Access IslamHouse Library for books, audios, videos, fatwas, articles, and author metadata.
-Excludes pure Quran recitations (use \`islamhouse_quran\`) and pure Hadith texts (use \`hadeethenc_services\`).
+    description: `Access IslamHouse Library for books, audios, videos, fatwas, articles, and author metadata. Excludes Quran recitations (use 'islamhouse_quran') and Hadith texts (use 'hadeethenc_services').
 
-**Behavior:** Read-only. Idempotent. No auth. No rate limits. Dynamic cache with real-time freshness. Fallback to English if translation is missing; returns empty arrays for non-existent IDs.
+**Behavior:** Read-only, idempotent, public access (no auth/rate limits). Cached dynamically with real-time freshness. Fallback to English on missing translations; returns empty arrays for unknown IDs; returns 400 error payload on invalid actions or malformed parameters.
+
 **Usage Guidelines:**
-- Use for general Islamic knowledge, scholarly books, fatwas, videos, and articles across languages.
-- Do NOT use for raw Quran texts (\`quran_services\`) or specific Hadith explanations (\`hadeethenc_services\`).
-**Action Mapping:**
-- \`get_categories_tree\`, \`get_categories\`, \`get_types\`: \`language\` or \`siteLang\`/\`contentLang\` (ISO-639-1) -> { categories: [] }
-- \`get_child_categories\`, \`get_sub_categories\`, \`get_category_basic\`, \`get_category_types\`, \`get_category_languages\`: \`id\` (int) -> { metadata }
-- \`list_items\`, \`get_latest_items\`, \`get_category_items\`, \`get_author_items\`: \`page\` (int), \`limit\` (int), \`type\`, \`categoryId\`, \`authorId\`, \`period\` (daily/weekly/monthly), \`slang\` (source lang), \`contentLang\` (target lang) -> { data: [] }
-- \`get_highlighted_items\`: \`page\`, \`limit\`, \`type\`, [\`categoryId\`], [\`slang\`/\`contentLang\`] -> { data: Item[], count: number }
-- \`get_items_count\`: \`type\`, [\`categoryId\`], [\`slang\`/\`contentLang\`] -> { type: string, total: number }
-- \`get_item_details\`, \`get_item_attachments\`, \`get_item_tree\`, \`get_item_card_translations\`, \`get_item_translations\`: \`id\` (int), \`language\` -> { title, description, attachments: [] }
-- \`list_authors\`: \`kind\` (format filter), \`locale\` (e.g. ar-SA), \`sort\` (asc/desc), \`page\`, \`perPage\` -> { data: [] }
-- \`get_author_details\`, \`get_author_card_translations\`, \`get_author_available_types\`, \`get_author_available_locales\`: \`id\` (int) -> { authorMetadata }
-- \`list_languages\`, \`get_language_terms\`, \`get_language_availability\`: \`language\`, \`slang\` -> { languages: [] }`,
+- Use for: Scholarly books, articles, fatwas, multimedia, and author biographies.
+- Do NOT use for: Raw Quran text/audio ('islamhouse_quran' / 'quran_services') or Hadith collections ('hadeethenc_services').
+
+**Parameters & Enums:**
+- \`action\`: API operation (see Action Groups below).
+- \`type\`: Content format enum: \`books\`, \`audios\`, \`videos\`, \`fatwas\`, \`articles\`.
+- \`period\`: Trending window enum: \`daily\`, \`weekly\`, \`monthly\`.
+- \`sort\`: Ordering enum: \`popular\`, \`newest\`, \`oldest\`.
+- \`kind\`: Scope filter enum: \`main\`, \`sub\`.
+- \`language\`, \`siteLang\`, \`contentLang\`, \`slang\`, \`locale\`: 2-letter ISO-639-1 codes (e.g., 'en', 'ar').
+- \`page\`, \`limit\`: Integer pagination controls.
+- \`id\`, \`categoryId\`, \`authorId\`: Positive integer identifiers.
+
+**Action Groups & Returns:**
+- Taxonomy (\`list_categories\`, \`list_types\`, \`get_categories_tree\`): Requires \`language\` -> Array of \`{ id: number, name: string, parentId?: number }\`.
+- Listings (\`list_items\`, \`get_latest_items\`, \`get_highlighted_items\`): Uses \`page\`, \`limit\`, \`type\`, [categoryId/authorId/period/sort/contentLang] -> \`{ data: ItemSummary[], total: number, page: number }\`.
+- Aggregations (\`get_items_count\`): Uses \`type\`, [categoryId/contentLang] -> \`{ type: string, total: number }\`.
+- Details (\`get_item_details\`, \`get_item_attachments\`, \`get_item_translations\`): Requires \`id\`, [language] -> Detailed \`{ id, title, description, attachments: Attachment[], locales: string[] }\`.
+- Authors (\`list_authors\`, \`get_author_details\`): Uses \`page\`, \`limit\` or \`id\`, [language] -> Author profile with \`{ id, name, biography, itemsCount: number }\`.`,
     inputSchema: {
       type: "object",
       properties: {
