@@ -144,7 +144,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
   {
     name: "quran_services",
-    description: "Fetch Quran translations and audio via QuranEnc.\n\n**Behavior**: Read-only, cacheable.\n**Output**: Varies by action.",
+    description: `Access QuranEnc to fetch Quran textual translations, translations lists, and ayah-level audio.
+Unlike islamhouse_quran, this tool specializes strictly in text-based translations of meanings and single-ayah audio, rather than full recitations or reciter data.
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits.
+**Usage Guidelines**:
+- Use this tool when you need the textual translation of an Ayah or Sura in a specific language, or a short audio clip of one Ayah.
+- Do NOT use this tool for full Sura recitations or fetching reciter profiles (use \`islamhouse_quran\` instead).
+**Action Mapping & Parameters**:
+- \`list_translations\`: Requires \`language\` (optional \`localization\`). Returns a JSON array of available translations.
+- \`get_sura_translation\`: Requires \`translationKey\` and \`suraNumber\`. Returns a JSON object with the translation of the full Sura.
+- \`get_aya_translation\`: Requires \`translationKey\`, \`suraNumber\`, and \`ayaNumber\`. Returns a JSON object with the specific Ayah's text.
+- \`get_aya_audio\`: Requires \`translationKey\`, \`suraNumber\`, and \`ayaNumber\`. Returns a JSON object with an audio URL for the Ayah.
+**Returns**: A JSON array or object containing the requested QuranEnc data.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -180,7 +192,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   },
   {
     name: "islamhouse_quran",
-    description: "Fetch Quran categories, reciters, and audio from IslamHouse.\n\n**Behavior**: Read-only.\n**Output**: Varies by action.",
+    description: `Access IslamHouse to fetch Quranic audio recitations, reciter (author) profiles, and Sura recitation metadata.
+Unlike quran_services, this tool specializes in high-quality, full-Sura audio recitations and reciter catalogs rather than textual translations.
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits.
+**Usage Guidelines**:
+- Use this tool when you need full audio recitations of the Quran, or information about specific reciters (e.g. Al-Sudais, Al-Shuraim).
+- Do NOT use this tool for fetching written Quran translations (use \`quran_services\` instead).
+**Action Mapping & Parameters**:
+- \`list_categories\`, \`get_category\`, \`get_author\`: Requires \`language\` and \`id\` (where applicable). Returns JSON metadata about categories and reciters.
+- \`get_author_recitations\`: Requires \`id\` (author ID) and \`language\`. Returns a JSON array of recitations by that author.
+- \`get_sura_details\`, \`get_sura_recitations\`: Requires \`suraId\` and \`language\`. Returns JSON metadata or available recitations for a specific Sura.
+- \`get_recitation_details\`: Requires \`id\` (recitation ID) and \`language\`. Returns a JSON object with recitation audio links.
+**Returns**: A JSON array or object containing the requested IslamHouse Quran data.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -209,7 +233,18 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   },
   {
     name: "hadeethenc_services",
-    description: "Fetch Hadith categories, lists, and translations from HadeethEnc.\n\n**Behavior**: Read-only.\n**Output**: Varies by action.",
+    description: `Access HadeethEnc to fetch authentic Hadith texts, categories, and translations in multiple languages.
+This is the only tool dedicated exclusively to Hadith texts and their detailed explanations.
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits.
+**Usage Guidelines**:
+- Use this tool when the user asks for Prophetic sayings, Hadith translations, or explanations of specific Hadiths.
+- Do NOT use this tool for fatwas or general Islamic books (use \`islamhouse_library\` or \`risalat_al_haramain\` instead).
+**Action Mapping & Parameters**:
+- \`list_languages\`, \`list_categories\`, \`list_root_categories\`: Requires \`languageCode\`. Returns JSON arrays of available categories.
+- \`list_hadiths\`: Requires \`language\`, \`categoryId\`, \`page\`, \`perPage\`. Returns a paginated JSON array of Hadiths in a category.
+- \`get_hadith_details\`: Requires \`id\` and \`language\`. Returns a highly detailed JSON object containing the Hadith text, translation, explanation, and references.
+**Returns**: A JSON array or object containing the requested HadeethEnc data.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -249,7 +284,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   },
   {
     name: "islamhouse_library",
-    description: "Access the IslamHouse Library for books, audios, videos, fatwas, articles, and author data.\n\n**Behavior**: Read-only.\n**Output**: Varies by action.",
+    description: `Access the comprehensive IslamHouse Library to fetch books, audios, videos, fatwas, articles, and author data.
+This is the largest general library tool. It excludes pure Quran recitations (which are in \`islamhouse_quran\`) and pure Hadith texts (in \`hadeethenc_services\`).
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits.
+**Usage Guidelines**:
+- Use this tool for general Islamic knowledge, books, fatwas, videos, and articles across dozens of languages.
+- Do NOT use this tool for raw Quran text/translations or specific Hadith collections.
+**Action Mapping & Parameters**:
+- \`get_categories_tree\`, \`get_categories\`, \`get_types\`: Requires \`language\` or \`siteLang\`/\`contentLang\`. Returns JSON arrays of library taxonomy.
+- \`list_items\`, \`get_latest_items\`, \`get_category_items\`, \`get_author_items\`: Requires \`page\`, \`limit\`, and filters (\`type\`, \`categoryId\`, \`authorId\`). Returns paginated JSON lists of content items.
+- \`get_item_details\`, \`get_item_attachments\`: Requires \`id\` and \`language\`. Returns detailed JSON objects for a specific book/audio/video and its downloadable files.
+- \`list_authors\`, \`get_author_details\`: Requires \`id\` or pagination params. Returns JSON data about authors and scholars.
+**Returns**: A JSON array or object containing the requested IslamHouse Library data.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -307,7 +354,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   },
   {
     name: "bayan_al_islam",
-    description: "Access Bayan Al-Islam for targeted Islamic content.\n\n**Behavior**: Read-only.\n**Output**: Varies by action.",
+    description: `Access Bayan Al-Islam to fetch specialized Islamic content targeting Muslims and Non-Muslims, including translated articles and structured lookups.
+Unlike the general IslamHouse library, this tool provides curated content categorized specifically by the target audience's faith perspective.
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits.
+**Usage Guidelines**:
+- Use this tool when seeking content specifically tailored for non-Muslims, or curated responses to common questions.
+- Do NOT use this tool for raw Hadith or Quran lookups.
+**Action Mapping & Parameters**:
+- \`list_muslim_content\`, \`list_non_muslim_content\`: Requires \`language\`. Returns a JSON array of curated content paths.
+- \`get_content\`: Requires \`id\` and \`language\`. Returns a detailed JSON object of a specific article or topic.
+- \`search_name\`: Requires \`name\` and \`language\`. Returns a JSON array of matching content.
+- \`get_content_translation\`: Requires \`id\`, \`targetLanguage\`, and \`language\`. Returns a JSON object with the translated content.
+**Returns**: A JSON array or object containing the requested Bayan Al-Islam data.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -350,7 +409,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   },
   {
     name: "risalat_al_haramain",
-    description: "Access Risalat Al-Haramain for fatwas, hadeeths, and contents.\n\n**Behavior**: Read-only.\n**Output**: Varies by action.",
+    description: `Access Risalat Al-Haramain to fetch official Haramain (Two Holy Mosques) fatwas, Friday sermons, specific hadeeths, and institutional contents.
+This tool specializes in official decrees and sermons originating from Mecca and Medina, distinguishing it from general libraries.
+
+**Behavior**: Read-only. Idempotent. No authentication required. No strict rate limits. (Except for lookups which may require an \`apiKey\`).
+**Usage Guidelines**:
+- Use this tool when the user specifically asks for Friday sermons from the Haramain, official fatwas from Haramain scholars, or institutional news.
+- Do NOT use this tool for general Islamic books (use \`islamhouse_library\`).
+**Action Mapping & Parameters**:
+- \`get_full_contents\`, \`get_contents\`: Requires \`language\` and \`lang\`. Returns JSON lists of Haramain content.
+- \`get_fatwas\`, \`get_hadeeths\`, \`get_quran\`: Requires \`language\`, \`lang\`, and optional \`isFeatured\`. Returns JSON arrays of categorized official releases.
+- \`get_content\`: Requires \`id\` and \`language\`. Returns a detailed JSON object for a specific sermon or fatwa.
+- \`search_contents\`, \`search_name\`: Requires \`query\` or \`name\` and \`language\`. Returns JSON arrays of search results.
+**Returns**: A JSON array or object containing the requested Risalat Al-Haramain data.`,
     inputSchema: {
       type: "object",
       properties: {
