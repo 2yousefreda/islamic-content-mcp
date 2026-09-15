@@ -200,11 +200,11 @@ Unlike quran_services, this specializes in high-quality, full-Sura audio recitat
 - Use for full audio recitations of the Quran or reciter information (e.g., Al-Sudais).
 - Do NOT use for fetching written Quran text/translations (use \`quran_services\` instead).
 **Action Mapping:**
-- \`list_categories\`, \`get_category\`, \`get_author\`: \`language\` (ISO-639-1), \`id\` (int) -> Returns { id, title, description, count }
-- \`get_author_recitations\`: \`id\` (author ID, int), \`language\` (ISO-639-1) -> Returns { data: [{ recitationId, title }] }
-- \`get_sura_details\`, \`get_sura_recitations\`: \`suraId\` (int 1-114), \`language\` (ISO-639-1) -> Returns { suraId, name, recitations: [] }
-- \`get_recitation_details\`: \`id\` (recitation ID, int), \`language\` (ISO-639-1) -> Returns { id, reciterId, audioUrl, duration }
-**Returns:** Concrete JSON object { id, title, audioUrl, recitations: [] } mapping the requested Quranic audio resource.`,
+- \`list_categories\`: \`language\` (ISO-639-1) -> Category[] { id: number, title: string }
+- \`get_category\`, \`get_author\`: \`language\` (ISO-639-1), \`id\` (int) -> { id, title, description, count }
+- \`get_author_recitations\`: \`id\` (author ID, int), \`language\` (ISO-639-1) -> { data: [{ recitationId, title }] }
+- \`get_sura_details\`, \`get_sura_recitations\`: \`suraId\` (int 1-114), \`language\` (ISO-639-1) -> { suraId, name, recitations: [] }
+- \`get_recitation_details\`: \`id\` (recitation ID, int), \`language\` (ISO-639-1) -> { id, reciterId, audioUrl, duration }`,
     inputSchema: {
       type: "object",
       properties: {
@@ -284,22 +284,23 @@ This is the only tool dedicated exclusively to Hadith texts and their detailed e
   },
   {
     name: "islamhouse_library",
-    description: `Access the comprehensive IslamHouse Library for books, audios, videos, fatwas, articles, and author metadata.
-This is the largest general library tool. It excludes pure Quran recitations (use \`islamhouse_quran\`) and pure Hadith texts (use \`hadeethenc_services\`).
+    description: `Access IslamHouse Library for books, audios, videos, fatwas, articles, and author metadata.
+Excludes pure Quran recitations (use \`islamhouse_quran\`) and pure Hadith texts (use \`hadeethenc_services\`).
 
-**Behavior:** Read-only. Idempotent. No authentication. No rate limits. Returns empty lists on invalid IDs.
+**Behavior:** Read-only. Idempotent. No auth. No rate limits. Dynamic cache with real-time freshness. Fallback to English if translation is missing; returns empty arrays for non-existent IDs.
 **Usage Guidelines:**
 - Use for general Islamic knowledge, scholarly books, fatwas, videos, and articles across languages.
 - Do NOT use for raw Quran texts (\`quran_services\`) or specific Hadith explanations (\`hadeethenc_services\`).
 **Action Mapping:**
-- \`get_categories_tree\`, \`get_categories\`, \`get_types\`: \`language\` or \`siteLang\`/\`contentLang\` (ISO-639-1) -> Returns { categories: [] }
-- \`get_child_categories\`, \`get_sub_categories\`, \`get_category_basic\`, \`get_category_types\`, \`get_category_languages\`: \`id\` (int) -> Returns { metadata }
-- \`list_items\`, \`get_latest_items\`, \`get_category_items\`, \`get_author_items\`: \`page\` (int), \`limit\` (int), \`type\`, \`categoryId\`, \`authorId\`, \`period\` (daily/weekly/monthly), \`slang\` (source lang), \`contentLang\` (target lang) -> Returns { data: [] }
-- \`get_item_details\`, \`get_item_attachments\`, \`get_item_tree\`, \`get_item_card_translations\`, \`get_item_translations\`: \`id\` (int), \`language\` -> Returns { title, description, attachments: [] }
-- \`list_authors\`: \`kind\` (format filter), \`locale\` (e.g. ar-SA), \`sort\` (asc/desc), \`page\`, \`perPage\` -> Returns { data: [] }
-- \`get_author_details\`, \`get_author_card_translations\`, \`get_author_available_types\`, \`get_author_available_locales\`: \`id\` (int) -> Returns { authorMetadata }
-- \`list_languages\`, \`get_language_terms\`, \`get_language_availability\`: \`language\`, \`slang\` -> Returns { languages: [] }
-**Returns:** Concrete JSON payloads with { data: [] } or specific item { title, attachments, metadata } matching the requested resource.`,
+- \`get_categories_tree\`, \`get_categories\`, \`get_types\`: \`language\` or \`siteLang\`/\`contentLang\` (ISO-639-1) -> { categories: [] }
+- \`get_child_categories\`, \`get_sub_categories\`, \`get_category_basic\`, \`get_category_types\`, \`get_category_languages\`: \`id\` (int) -> { metadata }
+- \`list_items\`, \`get_latest_items\`, \`get_category_items\`, \`get_author_items\`: \`page\` (int), \`limit\` (int), \`type\`, \`categoryId\`, \`authorId\`, \`period\` (daily/weekly/monthly), \`slang\` (source lang), \`contentLang\` (target lang) -> { data: [] }
+- \`get_highlighted_items\`: \`page\`, \`limit\`, \`type\`, [\`categoryId\`], [\`slang\`/\`contentLang\`] -> { data: Item[], count: number }
+- \`get_items_count\`: \`type\`, [\`categoryId\`], [\`slang\`/\`contentLang\`] -> { type: string, total: number }
+- \`get_item_details\`, \`get_item_attachments\`, \`get_item_tree\`, \`get_item_card_translations\`, \`get_item_translations\`: \`id\` (int), \`language\` -> { title, description, attachments: [] }
+- \`list_authors\`: \`kind\` (format filter), \`locale\` (e.g. ar-SA), \`sort\` (asc/desc), \`page\`, \`perPage\` -> { data: [] }
+- \`get_author_details\`, \`get_author_card_translations\`, \`get_author_available_types\`, \`get_author_available_locales\`: \`id\` (int) -> { authorMetadata }
+- \`list_languages\`, \`get_language_terms\`, \`get_language_availability\`: \`language\`, \`slang\` -> { languages: [] }`,
     inputSchema: {
       type: "object",
       properties: {
