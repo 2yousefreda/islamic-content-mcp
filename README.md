@@ -18,11 +18,10 @@ This server acts as a bridge for the [`islamic-content-sdk`](https://github.com/
 
 ## Features
 
-- **Quran Services**: Fetch surah and ayah translations (via QuranEnc & IslamHouse Quran), retrieve MP3 audio files, and submit notes/suggestions.
-- **Hadith Services**: Access Hadeeth listings, categories, translations, and explanations (via HadeethEnc).
-- **IslamHouse Library**: Retrieve categorized books, audios, videos, fatwas, articles, author data, and translations in dozens of languages.
-- **Al-Montaka, Bayan Al-Islam & Risalat Al-Haramain**: Access specialized Islamic databases, lookup tables, and targeted content lists.
-- **Built-in Developer Resource**: Exposes a direct guide (`sdk://docs/guide`) to teach AI models how to write and import SDK code for both Python and TypeScript.
+- **Quran Services**: Consolidated endpoint `quran_services` and `islamhouse_quran` for translations, audio, reciters, and categories.
+- **Hadith Services**: Consolidated endpoint `hadeethenc_services` for categories, translations, and explanations.
+- **IslamHouse Library**: Centralized endpoint `islamhouse_library` for books, audios, videos, fatwas, articles, author data, and translations.
+- **Bayan Al-Islam & Risalat Al-Haramain**: Powerful endpoints `bayan_al_islam` and `risalat_al_haramain` for specialized Islamic databases, lookup tables, and targeted content lists.
 
 ---
 
@@ -395,32 +394,33 @@ Add the configuration block under `mcpServers` in your Antigravity configuration
 
 ---
 
-## Available Tools
+## Exposed Tools (Consolidated)
 
-The MCP server registers **over 80 tools** organized by their target service:
+To optimize for AI Context Windows and LLM Tool Calls, the server exposes 6 powerful, parameter-driven tools. Use the `action` parameter to select the behavior of the tool.
 
-### Quran
-- `quranenc_translation_list`: Get lists of translations (e.g. English, French, Urdu).
-- `quranenc_translation_sura`: Fetch translation for a complete surah.
-- `quranenc_translation_aya`: Fetch translation for a specific ayah.
-- `quranenc_aya_audio`: Get audio file URL (MP3) for an ayah.
-- `islamhouse_quran_categories`, `islamhouse_quran_sura_details`, etc.
+### 1. `quran_services` (QuranEnc)
+Fetch Quran translations and audio via QuranEnc.
+- **Actions**: `list_translations`, `get_sura_translation`, `get_aya_translation`, `get_aya_audio`
 
-### Hadith
-- `hadeethenc_languages`: Get supported translation languages.
-- `hadeethenc_categories`: Retrieve Hadith categories.
-- `hadeethenc_hadiths_list`: List hadiths inside a category.
-- `hadeethenc_hadith_details`: Get the Arabic text, translation, explanation, and references of a single hadith.
+### 2. `islamhouse_quran`
+Fetch Quran categories, reciters, and audio from IslamHouse.
+- **Actions**: `list_categories`, `get_category`, `get_author`, `get_author_recitations`, `get_sura_details`, `get_sura_recitations`, `get_recitation_details`
 
-### IslamHouse General
-- `islamhouse_list_items`: Query books, audios, videos, and fatwas.
-- `islamhouse_item_details`: Fetch full details and attachments (PDFs/Audios) of an item.
-- `islamhouse_list_authors`: Get authors/scholars details.
+### 3. `hadeethenc_services`
+Fetch Hadith categories, lists, and translations from HadeethEnc.
+- **Actions**: `list_languages`, `list_categories`, `list_root_categories`, `list_hadiths`, `get_hadith_details`
 
-### Specialized Services
-- **Al-Montaka**: `almontaka_content`, `almontaka_comments`, lookup tables (entities, tags, etc.).
-- **Bayan Al-Islam**: `bayan_muslim_list`, `bayan_name_search`, `bayan_content_translation`.
-- **Risalat Al-Haramain**: `risala_get_contents`, `risala_fatwas`, `risala_hadeeths`.
+### 4. `islamhouse_library`
+Access the IslamHouse Library for books, audios, videos, fatwas, articles, and author data.
+- **Actions**: `get_types`, `get_categories`, `get_categories_tree`, `get_child_categories`, `get_category_basic`, `get_sub_categories`, `get_category_types`, `get_category_languages`, `list_items`, `get_author_items`, `get_category_items`, `get_latest_items`, `get_highlighted_items`, `get_items_count`, `get_item_details`, `get_item_attachments`, `get_item_tree`, `get_item_card_translations`, `get_item_translations`, `list_authors`, `get_author_details`, `get_author_card_translations`, `get_author_available_types`, `get_author_available_locales`, `list_languages`, `get_language_terms`, `get_language_availability`
+
+### 5. `bayan_al_islam`
+Access Bayan Al-Islam for targeted Islamic content.
+- **Actions**: `list_languages`, `list_muslim_content`, `list_non_muslim_content`, `get_content`, `list_paginated_languages`, `get_recent_contents`, `get_lookups`, `search_name`, `get_available_languages`, `get_content_translation`, `get_attachments_translation`
+
+### 6. `risalat_al_haramain`
+Access Risalat Al-Haramain for fatwas, hadeeths, and contents.
+- **Actions**: `get_full_contents`, `get_contents`, `get_content`, `search_name`, `search_contents`, `get_available_languages`, `get_content_translation`, `get_fatwas`, `get_hadeeths`, `get_quran`, `get_lookups_languages`, `get_lookups_content_types`
 
 ---
 

@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "name": "islamic-content-mcp-server",
+  "description": "Model Context Protocol (MCP) Server for the Association for Multi-lingual Islamic Content. Provides AI agents access to authentic Quran, Hadith, and Islamic library resources.",
+  "icon": "https://islamiccontent.sa/assets/images/logo.png",
+  "category": "Reference",
+  "tags": [
+    "religion",
+    "islam",
+    "quran",
+    "hadith",
+    "education"
+  ],
+  "repository": "https://github.com/2yousefreda/islamic-content-mcp",
+  "license": "MIT",
+  "environment": {},
+  "capabilities": {
+    "tools": true,
+    "resources": true
+  }
+}
