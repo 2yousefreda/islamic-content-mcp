@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.1",
-    "islamic-content-sdk": "^1.0.5"
+    "islamic-content-sdk": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
