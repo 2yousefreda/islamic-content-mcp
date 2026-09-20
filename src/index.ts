@@ -819,7 +819,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           case "get_quran": result = await sdk.risalatAlHaramain.islamicContent.quran({ language: lang, lang: lang, isFeatured: anyArgs.isFeatured !== undefined ? Number(anyArgs.isFeatured) : undefined }); break;
           case "search_contents": 
             requireArgs(["query"]);
-            result = await sdk.risalatAlHaramain.search.contents(anyArgs.query, lang); 
+            result = await sdk.risalatAlHaramain.search.contents(anyArgs.query, lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); 
             if (result && Array.isArray(result.results) && result.results.length === 0) {
               result._hint = "No results found. Try using different keywords.";
             } else if (Array.isArray(result) && result.length === 0) {
