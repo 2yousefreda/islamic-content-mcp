@@ -674,7 +674,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         switch (anyArgs.action) {
           case "list_languages": result = await sdk.hadeethenc.languages(); break;
           case "list_categories": 
-            result = await sdk.hadeethenc.categories(lang); 
+            result = await sdk.hadeethenc.categories(lang, anyArgs.categoryId !== undefined ? Number(anyArgs.categoryId) : undefined); 
             break;
           case "list_root_categories": result = await sdk.hadeethenc.rootCategories(lang); break;
           case "list_hadiths": 
@@ -784,8 +784,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "bayan_al_islam":
         switch (anyArgs.action) {
           case "list_languages": result = await sdk.bayanAlIslam.languagesList(lang); break;
-          case "list_muslim_content": result = await sdk.bayanAlIslam.muslimList(lang); break;
-          case "list_non_muslim_content": result = await sdk.bayanAlIslam.nonMuslimList(lang); break;
+          case "list_muslim_content": result = await sdk.bayanAlIslam.muslimList(lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); break;
+          case "list_non_muslim_content": result = await sdk.bayanAlIslam.nonMuslimList(lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); break;
 
           case "list_paginated_languages": result = await sdk.bayanAlIslam.paginatedLanguages({ name: anyArgs.name, page: anyArgs.page !== undefined ? Number(anyArgs.page) : undefined, language: lang }); break;
           case "get_recent_contents": result = await sdk.bayanAlIslam.recentContents({ lang: lang, init: Boolean(anyArgs.init), ids: Array.isArray(anyArgs.ids) ? anyArgs.ids.map(Number) : undefined, language: lang }); break;
