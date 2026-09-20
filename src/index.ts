@@ -113,7 +113,7 @@ run();
 
 Both SDKs contain the exact same services:
 1. **\`quranenc\`**: Quran translations and audio services.
-   - Methods: \`translationList(params)\`, \`translationSura(translation_key, sura_number)\`, \`translationAya(translation_key, sura_number, aya_number)\`, \`ayaAudio(translation_key, sura_number, aya_number)\`, \`addNote(payload)\`
+   - Methods: \`translationList(params)\`, \`translationSura(translation_key, sura_number)\`, \`translationAya(translation_key, sura_number, aya_number)\`, \`ayaAudio(translation_key, sura_number, aya_number)\`
 2. **\`hadeethenc\`**: Hadith services.
    - Methods: \`languages()\`, \`categories(languageCode)\`, \`rootCategories(languageCode)\`, \`hadithsList(params)\`, \`hadithDetails(params)\`
 3. **\`islamhouse\`**: IslamHouse library content.
