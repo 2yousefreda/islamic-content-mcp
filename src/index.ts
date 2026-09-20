@@ -656,10 +656,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             requireArgs(["id"]);
             result = await sdk.islamhouse.quran.authorRecitations(Number(anyArgs.id), lang); 
             break;
-          case "get_sura_details": 
-            requireArgs(["suraId"]);
-            result = await sdk.islamhouse.quran.suraDetails(Number(anyArgs.suraId), lang); 
-            break;
+
           case "get_sura_recitations": 
             requireArgs(["suraId"]);
             if (Number(anyArgs.suraId) < 1 || Number(anyArgs.suraId) > 114) throw new Error("suraId must be between 1 and 114");
@@ -677,7 +674,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         switch (anyArgs.action) {
           case "list_languages": result = await sdk.hadeethenc.languages(); break;
           case "list_categories": 
-            result = await sdk.hadeethenc.categories(lang, anyArgs.categoryId !== undefined ? Number(anyArgs.categoryId) : undefined); 
+            result = await sdk.hadeethenc.categories(lang); 
             break;
           case "list_root_categories": result = await sdk.hadeethenc.rootCategories(lang); break;
           case "list_hadiths": 
@@ -787,8 +784,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "bayan_al_islam":
         switch (anyArgs.action) {
           case "list_languages": result = await sdk.bayanAlIslam.languagesList(lang); break;
-          case "list_muslim_content": result = await sdk.bayanAlIslam.muslimList(lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); break;
-          case "list_non_muslim_content": result = await sdk.bayanAlIslam.nonMuslimList(lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); break;
+          case "list_muslim_content": result = await sdk.bayanAlIslam.muslimList(lang); break;
+          case "list_non_muslim_content": result = await sdk.bayanAlIslam.nonMuslimList(lang); break;
 
           case "list_paginated_languages": result = await sdk.bayanAlIslam.paginatedLanguages({ name: anyArgs.name, page: anyArgs.page !== undefined ? Number(anyArgs.page) : undefined, language: lang }); break;
           case "get_recent_contents": result = await sdk.bayanAlIslam.recentContents({ lang: lang, init: Boolean(anyArgs.init), ids: Array.isArray(anyArgs.ids) ? anyArgs.ids.map(Number) : undefined, language: lang }); break;
@@ -822,7 +819,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           case "get_quran": result = await sdk.risalatAlHaramain.islamicContent.quran({ language: lang, lang: lang, isFeatured: anyArgs.isFeatured !== undefined ? Number(anyArgs.isFeatured) : undefined }); break;
           case "search_contents": 
             requireArgs(["query"]);
-            result = await sdk.risalatAlHaramain.search.contents(anyArgs.query, lang, anyArgs.page !== undefined ? Number(anyArgs.page) : 1); 
+            result = await sdk.risalatAlHaramain.search.contents(anyArgs.query, lang); 
             if (result && Array.isArray(result.results) && result.results.length === 0) {
               result._hint = "No results found. Try using different keywords.";
             } else if (Array.isArray(result) && result.length === 0) {
@@ -831,14 +828,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             break;
           case "get_lookups_languages": result = await sdk.risalatAlHaramain.lookups.languages(lang, anyArgs.apiKey); break;
           case "get_lookups_content_types": result = await sdk.risalatAlHaramain.lookups.contentTypes(lang); break;
-          case "get_available_languages": 
-            requireArgs(["id"]);
-            result = await sdk.risalatAlHaramain.contents.availableLanguages(Number(anyArgs.id), lang); 
-            break;
-          case "get_content_translation": 
-            requireArgs(["id", "targetLanguage"]);
-            result = await sdk.risalatAlHaramain.contents.contentTranslation(Number(anyArgs.id), anyArgs.targetLanguage, lang); 
-            break;
+
           default: throw new Error("Invalid action for risalat_al_haramain");
         }
         break;
