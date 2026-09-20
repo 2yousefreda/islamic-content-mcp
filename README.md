@@ -422,6 +422,10 @@ Access Bayan Al-Islam for targeted Islamic content.
 Access Risalat Al-Haramain for fatwas, hadeeths, and contents.
 - **Actions**: `get_full_contents`, `get_contents`, `get_content`, `search_name`, `search_contents`, `get_available_languages`, `get_content_translation`, `get_fatwas`, `get_hadeeths`, `get_quran`, `get_lookups_languages`, `get_lookups_content_types`
 
+### 7. `al_montaka`
+Access Al Montaka to fetch general content and metadata lookups.
+- **Actions**: `list_contents`, `get_comments`, `get_lookups_age_groups`, `get_lookups_categories`, `get_lookups_entities`, `get_lookups_expert_levels`, `get_lookups_ideologies`, `get_lookups_languages`, `get_lookups_persons`, `get_lookups_sections`, `get_lookups_tags`, `get_lookups_targeted_groups`, `get_lookups_youtube_channels`
+
 ---
 
 ## Developer Guide (Local Development)
